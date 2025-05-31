@@ -3,7 +3,7 @@
 
 #include QMK_KEYBOARD_H
 
-#define TIMEOUT_MS 250  // Timeout in milliseconds.
+#define TIMEOUT_MS 200  // Timeout in milliseconds.
 #define RECENT_SIZE 3  // Number of keys in `recent` buffer.
 
 extern uint16_t recent[RECENT_SIZE];

@@ -31,6 +31,8 @@ enum layers {
 #define A_BSPC RALT_T(KC_BSPC)
 #define L1_BSPC LT(1, KC_BSPC)
 
+#define L2_DEL LT(2, KC_DEL)
+
 #define C_A LCTL_T(KC_A)
 #define C_ENT LCTL_T(KC_ENT)
 
@@ -58,27 +60,15 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 }
 
 static const sequential_combo_entry_t my_combos[] = {
-    {KC_F, KC_J, KC_MINS}, // for IME
-    {KC_D, KC_F, KC_F16}, // for IME
-    {KC_F, KC_D, KC_F16}, // for IME
-    {KC_D, KC_V, LSFT(KC_9)}, // tap "," "m" to "("
-    {KC_V, KC_D, LSFT(KC_0)}, // tap "," "m" to ")"
-    {KC_S, KC_D, KC_LBRC}, // tap "s" "d" to "("
-    {KC_COMM, KC_M, KC_RBRC}, // tap "," "m" to ")"
-    // {KC_D, KC_S, LSFT(KC_0)}, // tap "d" "s" to ")"
-    {KC_X, KC_C, LSFT(KC_LBRC)}, // tap "x" "c" to "{"
-    {KC_C, KC_X, LSFT(KC_RBRC)}, // tap "c" "x" to "}"
-    {KC_LPRN, KC_LPRN, KC_LBRC}, // double tap "(" to "["
-    {KC_RPRN, KC_RPRN, KC_RBRC}, // double tap ")" to "]"
-    {KC_LCBR, KC_LCBR, LSFT(KC_COMM)}, // double tap "{" to "<"
-    {KC_RCBR, KC_RCBR, LSFT(KC_DOT)}, // double tap "}" to ">"
+    {LSFT(KC_9), LSFT(KC_9), LSFT(KC_0)}, // double tap "(" to ")"
+    {KC_LCBR, KC_LCBR, KC_RCBR}, // double tap "{" to "}"
+    {KC_LBRC, KC_LBRC, KC_RBRC}, // double tap "[" to "]"
+    {LSFT(KC_COMM), LSFT(KC_COMM), LSFT(KC_DOT)}, // double tap "<" to ">"
     {KC_DOT, KC_COMM, KC_SCLN}, // tap "." "," to ";"
-    {KC_C, KC_V, KC_QUOT}, // tap "c" "v" to "'"
-    {KC_V, KC_C, LSFT(KC_QUOT)}, // tap "v" "v" to """
     {KC_COMM, KC_DOT, KC_EQL}, // tap "," "." to "="
-    {KC_M, KC_COMM, KC_UNDS}, // tap "," "M" to "_"
     {KC_COMM, KC_COMM, LSFT(KC_SCLN)}, // double tap "," to ":"
     {S_Z, S_SLSH, LSFT(KC_SLSH)}, // tap "z" "/" to "?"
+    {KC_QUOT, KC_QUOT, KC_DQT}, // tap "z" "/" to "?"
 };
 
 void keyboard_post_init_user(void) {
@@ -105,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
     C_A,     KC_S,    KC_D,    KC_F,    KC_G, _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    C_ENT,
     S_Z,     KC_X,    KC_C,    KC_V,    KC_B, _______, _______, KC_N,    KC_M, KC_COMM,   KC_DOT,   S_SLSH,
-    _______,_______, G_TAB,   A_SPC, _______,  KC_SPC, KC_RSFT,_______, L1_BSPC,   MO(2),  _______,  _______
+    _______,_______, G_TAB,   A_SPC, _______,  KC_SPC, KC_RSFT,_______, L1_BSPC,   L2_DEL,  _______,  _______
 ),
 
 /* Function レイヤー
@@ -124,8 +114,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_FUNCTION] = LAYOUT_ortho_5x12(
     KC_1,     KC_2,      KC_3,   KC_4,     KC_5, _______, _______, KC_6,       KC_7,    KC_8,    KC_9,    KC_0,
     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR,  KC_GRV, KC_TILD,
-    KC_PLUS, KC_LBRC, KC_RBRC, KC_EQL,  KC_COLN, _______, _______, KC_LEFT, KC_DOWN,   KC_UP,KC_RIGHT, KC_SCLN,
-    KC_PIPE,LSFT(KC_COMM),LSFT(KC_DOT), KC_QUOT, KC_DQT,  _______, _______, KC_BSLS, KC_UNDS, KC_LBRC, KC_RBRC, KC_MINS,
+    KC_PLUS,LSFT(KC_9),KC_LBRC,KC_MINS,   KC_EQL, _______, _______, KC_LEFT,KC_DOWN,   KC_UP,KC_RIGHT, KC_SCLN,
+    KC_DQT,KC_LCBR,LSFT(KC_COMM), KC_QUOT, KC_UNDS,  _______, _______, KC_PIPE, KC_UNDS, LSFT(KC_COMM), LSFT(KC_DOT), KC_BSLS,
     _______, _______, KC_LGUI, KC_LALT,  _______, _______, _______, _______,  KC_SPC, _______, _______, _______
 ),
 

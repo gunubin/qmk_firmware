@@ -40,6 +40,7 @@ bool process_sequential_combo_keys(uint16_t keycode, keyrecord_t *record) {
         case KC_LPRN: case KC_RPRN:
         case KC_LCBR: case KC_RCBR:
         case KC_PLUS: case KC_PIPE:
+        case LSFT(KC_COMM): case LSFT(KC_DOT):
             break;
 
         case KC_LSFT: case KC_RSFT:
