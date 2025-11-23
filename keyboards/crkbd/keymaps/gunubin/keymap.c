@@ -37,6 +37,8 @@ enum layers {
 #define S_Z LSFT_T(KC_Z)
 #define S_SLSH LSFT_T(KC_SLSH)
 
+#define LM_NUM LM(2, MOD_LGUI)
+
 const uint16_t PROGMEM sleep_combo[] = {KC_F14, KC_F15, COMBO_END};
 // const uint16_t PROGMEM one_shot_shift_combo[] = {KC_F, KC_J, COMBO_END};
 combo_t key_combos[] = {
@@ -79,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    _______,
       _______, C_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    C_ENT,   _______,
       _______, S_Z,     KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  S_SLSH,  _______,
-                         G_TAB,   A_SPC,   KC_SPC,  KC_RSFT, L1_BSPC, L2_DEL
+                         G_TAB,   A_SPC,   LM_NUM,  KC_RSFT, L1_BSPC, L2_DEL
     ),
 
     [_FUNCTION] = LAYOUT_split_3x6_3(
@@ -112,7 +114,7 @@ void housekeeping_task_user(void) {
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case S_Z:
-            return 155;
+            return 160;
         case C_A:
 //             return 170;
             return 180;
