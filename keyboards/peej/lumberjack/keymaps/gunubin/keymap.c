@@ -164,6 +164,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void housekeeping_task_user(void) {
+    // 5秒間アイドルでIME OFF (英数キー送信)
+    static bool idle_ime_sent = false;
+
+    if (last_input_activity_elapsed() > 10000) {
+        if (!idle_ime_sent) {
+            tap_code(KC_LNG2);  // 英数キー (IME OFF)
+            idle_ime_sent = true;
+        }
+    } else {
+        idle_ime_sent = false;
+    }
+
     recent_keys_housekeeping();
     sequential_combo_housekeeping();
 }
