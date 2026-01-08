@@ -36,6 +36,7 @@ enum layers {
 
 #define S_Z LSFT_T(KC_Z)
 #define S_SLSH LSFT_T(KC_SLSH)
+#define S_MINUS LSFT_T(KC_MINUS)
 
 #define LM_NUM LM(2, MOD_LGUI)
 
@@ -68,7 +69,7 @@ static const sequential_combo_entry_t my_combos[] = {
     {KC_COMM, KC_DOT, KC_EQL}, // tap "," "." to "="
     {KC_COMM, KC_COMM, LSFT(KC_SCLN)}, // double tap "," to ":"
     {S_Z, S_SLSH, LSFT(KC_SLSH)}, // tap "z" "/" to "?"
-    {KC_QUOT, KC_QUOT, KC_DQT}, // tap "z" "/" to "?"
+    // {KC_QUOT, KC_QUOT, KC_DQT}, // tap "z" "/" to "?"
 };
 
 void keyboard_post_init_user(void) {
@@ -80,13 +81,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QWERTY] = LAYOUT_split_3x6_3(
       _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    _______,
       _______, C_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    C_ENT,   _______,
-      _______, S_Z,     KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  S_SLSH,  _______,
+      _______, S_Z,     KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,S_MINUS,  _______,
                          G_TAB,   A_SPC,   LM_NUM,  KC_RSFT, L1_BSPC, L2_DEL
     ),
 
     [_FUNCTION] = LAYOUT_split_3x6_3(
       _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_GRV,  KC_TILD, _______,
-      _______, KC_PLUS, LSFT(KC_9), KC_LBRC, KC_MINS, KC_EQL, KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, KC_SCLN, _______,
+      _______, KC_PLUS, LSFT(KC_9), KC_LBRC, KC_SLSH, KC_EQL, KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, KC_SCLN, _______,
       _______, KC_DQT,  KC_LCBR, LSFT(KC_COMM), KC_QUOT, KC_UNDS, KC_PIPE, KC_UNDS, LSFT(KC_COMM), LSFT(KC_DOT), KC_BSLS, _______,
                          KC_LGUI, KC_LALT, _______, _______, KC_SPC,  _______
     ),

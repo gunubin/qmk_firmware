@@ -39,6 +39,9 @@ enum layers {
 #define S_Z LSFT_T(KC_Z)
 #define S_SLSH LSFT_T(KC_SLSH)
 
+#define LM_NUM LM(2, MOD_LGUI)
+#define S_MINUS LSFT_T(KC_MINUS)
+
 const uint16_t PROGMEM sleep_combo[] = {KC_F14, KC_F15, COMBO_END};
 // const uint16_t PROGMEM one_shot_shift_combo[] = {KC_F, KC_J, COMBO_END};
 combo_t key_combos[] = {
@@ -68,7 +71,7 @@ static const sequential_combo_entry_t my_combos[] = {
     {KC_COMM, KC_DOT, KC_EQL}, // tap "," "." to "="
     {KC_COMM, KC_COMM, LSFT(KC_SCLN)}, // double tap "," to ":"
     {S_Z, S_SLSH, LSFT(KC_SLSH)}, // tap "z" "/" to "?"
-    {KC_QUOT, KC_QUOT, KC_DQT}, // tap "z" "/" to "?"
+    // {KC_QUOT, KC_QUOT, KC_DQT}, // tap "z" "/" to "?"
 };
 
 void keyboard_post_init_user(void) {
@@ -95,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
     C_A,     KC_S,    KC_D,    KC_F,    KC_G, _______, _______, KC_H,    KC_J,    KC_K,    KC_L,    C_ENT,
     S_Z,     KC_X,    KC_C,    KC_V,    KC_B, _______, _______, KC_N,    KC_M, KC_COMM,   KC_DOT,   S_SLSH,
-    _______,_______, G_TAB,   A_SPC, _______,  KC_SPC, KC_RSFT,_______, L1_BSPC,   L2_DEL,  _______,  _______
+    _______,_______, G_TAB,   A_SPC, _______,  LM_NUM, KC_RSFT,_______, L1_BSPC,   L2_DEL,  _______,  _______
 ),
 
 /* Function レイヤー
@@ -165,10 +168,13 @@ void housekeeping_task_user(void) {
     sequential_combo_housekeeping();
 }
 
+// タッピングターム: キーを押してからホールドと判定されるまでの時間（ミリ秒）
+// 値が小さいほど素早くホールド判定される。タップ入力には素早い指離しが必要になる
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case S_SLSH:
         case S_Z:
-            return 155;
+            return 180;
         case C_A:
 //             return 170;
             return 180;
@@ -179,6 +185,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// クイックタップターム: 前回のタップから指定時間内に再度押した場合、自動的にタップとして扱う
+// 0に設定すると、連打時でも常にホールド判定が行われる（リピート入力向け）
 uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case A_BSPC:
@@ -189,39 +197,48 @@ uint16_t get_quick_tap_term(uint16_t keycode, keyrecord_t *record) {
     }
 }
 
+// パーミッシブホールド: true の場合、タッピングターム内でも
+// 「このキーを押す→別キーを押して離す→このキーを離す」でホールド扱いになる
+// false の場合、タッピングターム経過を待ってからホールド判定する
 bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case A_SPC:
         case G_TAB:
         case A_BSPC:
         case L1_BSPC:
-        case S_SLSH:
+//         case S_SLSH:
             return false;
         default:
            return PERMISSIVE_HOLD;
     }
 }
 
+// ホールドオン他キー押下: true の場合、このキーを押している間に
+// 別のキーが押されると即座にホールドとして扱われる（タッピングターム無視）
+// レイヤーキーなど、素早い修飾が必要な場合に有効
 bool get_hold_on_other_key_press(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case A_SPC:
         case G_TAB:
         case A_BSPC:
         case L1_BSPC:
-        case S_SLSH:
+//         case S_SLSH:
             return true;
         default:
             return HOLD_ON_OTHER_KEY_PRESS;
     }
 }
 
+// タッピングフォースホールド: true の場合、タップ直後に同じキーを押し続けても
+// ホールド動作になる。false の場合、タップのオートリピートになる
+// BSPCなど連打したいキーは false が便利
 bool get_tapping_force_hold(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case A_SPC:
         case G_TAB:
         case A_BSPC:
         case L1_BSPC:
-        case S_SLSH:
+//         case S_SLSH:
             return false;
         default:
             return TAPPING_FORCE_HOLD;
