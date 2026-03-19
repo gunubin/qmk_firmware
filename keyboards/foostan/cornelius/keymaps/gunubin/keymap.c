@@ -1,4 +1,4 @@
-/* Copyright 2020 Paul James
+/* Copyright 2020 foostan
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -78,25 +78,25 @@ void keyboard_post_init_user(void) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-    [_QWERTY] = LAYOUT_split_3x6_3(
+    [_QWERTY] = LAYOUT(
       _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    _______,
       _______, C_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    C_ENT,   _______,
       _______, S_Z,     KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  S_SLSH,  _______,
-                         G_TAB,   A_SPC,   LM_NUM,  KC_RSFT, L1_BSPC, L2_DEL
+      _______, _______, _______,  G_TAB,   A_SPC,   LM_NUM,  KC_RSFT, L1_BSPC, L2_DEL, _______,   _______, _______
     ),
 
-    [_FUNCTION] = LAYOUT_split_3x6_3(
+    [_FUNCTION] = LAYOUT(
       _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_GRV,  KC_TILD, _______,
       _______, KC_PLUS, LSFT(KC_9), KC_LBRC, KC_MINS, KC_EQL, KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, KC_SCLN, _______,
       _______, KC_DQT,  KC_LCBR, LSFT(KC_COMM), KC_QUOT, KC_UNDS, KC_PIPE, KC_UNDS, LSFT(KC_COMM), LSFT(KC_DOT), KC_BSLS, _______,
-                         KC_LGUI, KC_LALT, _______, _______, KC_SPC,  _______
+      _______, _______, _______,  KC_LGUI, KC_LALT, _______, _______, KC_SPC, _______,  _______, _______, _______
     ),
 
-    [_NUMBER] = LAYOUT_split_3x6_3(
+    [_NUMBER] = LAYOUT(
       _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-                         KC_LGUI, KC_LALT, _______, _______, KC_SPC,  _______
+      _______, _______, _______, KC_LGUI, KC_LALT, _______, _______, KC_SPC, _______,  _______, _______, _______
     )
 
 };

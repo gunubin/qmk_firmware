@@ -1,16 +1,33 @@
 {
-    "keyboard_name": "Cornelius",
+    "keyboard_name": "Cornelius rev2",
     "manufacturer": "foostan",
-    "url": "",
+    "url": "https://github.com/foostan/corneliuskbd",
     "maintainer": "foostan",
+    "usb": {
+        "vid": "0x4653",
+        "pid": "0x0006",
+        "device_version": "2.0.0"
+    },
     "features": {
         "bootmagic": true,
-        "command": false,
-        "console": false,
+        "mousekey": true,
         "extrakey": true,
-        "mousekey": true
+        "nkro": true
+    },
+    "matrix_pins": {
+        "cols": ["GP27", "GP26", "GP25", "GP24", "GP18", "GP17", "GP11", "GP6", "GP5", "GP4", "GP3", "GP2"],
+        "rows": ["GP1", "GP29", "GP28", "GP16"]
     },
     "diode_direction": "COL2ROW",
+    "dynamic_keymap": {
+        "layer_count": 6
+    },
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "bootmagic": {
+        "enabled": true,
+        "matrix": [ 0, 0 ]
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [
